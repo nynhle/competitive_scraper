@@ -23,7 +23,7 @@ class Crawler(object):
 		self.visited_links.add(str(next_subpage))
 		for linknode in tree.find_all('a'):
 			link = str(linknode.get('href'))
-			if link.startswith('/cs294_fall2015'):
+			if link.startswith('/'):
 				if link not in self.visited_links:
 					self.unvisited_links.add(link)
 	
