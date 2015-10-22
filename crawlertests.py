@@ -1,5 +1,5 @@
 import unittest
-from ..main import main
+import main
 
 class TestCrawler(unittest.TestCase):
 	def __init__(self, *args, **kwargs):
