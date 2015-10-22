@@ -25,7 +25,7 @@ class Crawler(object):
 			if link.startswith('/cs294_fall2015'):
 				if link not in self.visited_links:
 					self.unvisited_links.append(link)
-					set(self.unvisited_links)
+					self.unvisited_links = list(set(self.unvisited_links))
 					
 	
 
