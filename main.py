@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib2
 
-class Scraper(object):
+class Crawler(object):
 	
 	def __init__(self, starting_domain, starting_subpage):
 		self.starting_domain = starting_domain
@@ -13,7 +13,7 @@ class Scraper(object):
 	def get_webpage(self, url):
 		return urllib2.urlopen(url)
 
-	def scrape_site_extract_links(self):
+	def scrape_site_extract_links(self):	
 		next_subpage = self.unvisited_links.pop(0)
 		next_site = self.starting_domain + next_subpage
 		print next_site
@@ -29,14 +29,14 @@ class Scraper(object):
 				pass
 	
 
-	def Scrape(self):
+	def Crawl(self):
 		while len(self.unvisited_links) > 0:
-			print "Scraping..."
+			print "Crawling..."
 			self.scrape_site_extract_links()
-			print "One subpage scraped!"
-			print "Scraped subpages: " + str(len(self.visited_links))
+			print "One subpage crawled!"
+			print "Crawled subpages: " + str(len(self.visited_links))
 			print "Subpages to go: " + str(len(self.unvisited_links))
 
-scraper = Scraper('http://bruab.github.io', '/cs294_fall2015/index.html')
-scraper.Scrape()
+crawler = Crawler('http://bruab.github.io', '/cs294_fall2015/index.html')
+crawler.Crawl()
 
