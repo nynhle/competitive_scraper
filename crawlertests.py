@@ -7,7 +7,7 @@ class TestCrawler(unittest.TestCase):
 		self.crawler = main.Crawler('http://bruab.github.io', '/cs294_fall2015/')
 
 	def test_no_link_duplicates(self):
-		self.assertEqual(self.crawler.visited_links, set(self.crawler.visited_links))
+		self.assertEqual(self.crawler.visited_links, list(set(self.crawler.visited_links)))
 
 
 if __name__ == '__main__':
