@@ -26,7 +26,6 @@ class Crawler(object):
 				if link not in self.visited_links:
 					self.unvisited_links.append(link)
 					set(self.unvisited_links)
-					set(self.visited_links)
 					
 	
 
