@@ -9,6 +9,7 @@ class Crawler(object):
 		self.starting_subpage = starting_subpage
 		self.visited_links = Set()
 		self.unvisited_links = Set()
+		self.failed_links = Set()
 		self.unvisited_links.add(starting_subpage)
 
 	def get_webpage(self, url):
@@ -18,14 +19,19 @@ class Crawler(object):
 		next_subpage = self.unvisited_links.pop()
 		next_site = self.starting_domain + next_subpage
 		print next_site
-		site = urllib2.urlopen(next_site)
-		tree = BeautifulSoup(site, 'html.parser')
-		self.visited_links.add(str(next_subpage))
-		for linknode in tree.find_all('a'):
-			link = str(linknode.get('href'))
-			if link.startswith('/'):
-				if link not in self.visited_links:
-					self.unvisited_links.add(link)
+
+		try:
+			site = urllib2.urlopen(next_site)
+			tree = BeautifulSoup(site, 'html.parser')
+			self.visited_links.add(str(next_subpage))
+			for linknode in tree.find_all('a'):
+				link = str(linknode.get('href'))
+				if link.startswith('/'):
+					if link not in self.visited_links:
+						self.unvisited_links.add(link)
+		except Exception:
+			print "Not possible to scrape: " + next_site
+			self.failed_links.add(next_site)
 	
 	def Crawl(self):
 		while len(self.unvisited_links) > 0:
@@ -34,3 +40,5 @@ class Crawler(object):
 			print "One subpage crawled!"
 			print "Crawled subpages: " + str(len(self.visited_links))
 			print "Subpages to go: " + str(len(self.unvisited_links))
+		print "Failed links: "
+		print self.failed_links
