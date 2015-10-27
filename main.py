@@ -1,4 +1,4 @@
-import Crawler
+from src import Crawler
 
 print "Welcome to competitive scraper v. 0.01"
 print "Currently only supporting website crawling..."
