@@ -1,7 +1,12 @@
 from sets import Set
 from bs4 import BeautifulSoup
-import urllib2
+import requests
 
+class Website(object):
+	def __init__(self, content):
+		self.content = content
+	def to_string(self):
+		return str(self.content)
 class Crawler(object):
 	
 	def __init__(self, starting_domain, starting_subpage):
@@ -13,7 +18,7 @@ class Crawler(object):
 		self.unvisited_links.add(starting_subpage)
 
 	def get_webpage(self, url):
-		return urllib2.urlopen(url)
+		return requests.get(url)
 
 	def scrape_site_extract_links(self):	
 		next_subpage = self.unvisited_links.pop()
@@ -21,8 +26,8 @@ class Crawler(object):
 		print next_site
 
 		try:
-			site = urllib2.urlopen(next_site)
-			tree = BeautifulSoup(site, 'html.parser')
+			site = requests.get(next_site)
+			tree = BeautifulSoup(site.content, 'html.parser')
 			self.visited_links.add(str(next_subpage))
 			for linknode in tree.find_all('a'):
 				link = str(linknode.get('href'))
