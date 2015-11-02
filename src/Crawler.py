@@ -1,4 +1,3 @@
-from sets import Set
 from bs4 import BeautifulSoup
 import requests
 
@@ -12,11 +11,16 @@ class Crawler(object):
 	def __init__(self, starting_domain, starting_subpage):
 		self.starting_domain = starting_domain
 		self.starting_subpage = starting_subpage
-		self.visited_links = Set()
-		self.unvisited_links = Set()
-		self.failed_links = Set()
+		self.visited_links = set()
+		self.unvisited_links = set()
+		self.failed_links = set()
 		self.unvisited_links.add(starting_subpage)
 
+	def save_webpage(self, link, content):
+		html_page = open(link, 'w')
+		html_page.write(content)
+		html_page.close()
+		
 	def get_webpage(self, url):
 		return requests.get(url)
 
