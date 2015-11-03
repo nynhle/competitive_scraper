@@ -60,17 +60,17 @@ class Scraper(object):
 		self.url_list = list_of_urls
 
 	def replace_old_index(self):
-		index_file = open('index.txt', 'r')
+		index_file = open('data/index.txt', 'r')
 		index_file_content = index_file.read()
 		index_file.close()
-		old_file = open('old.txt', 'w')
+		old_file = open('data/old.txt', 'w')
 		old_file.write(index_file_content)
 		old_file.close()
 		open('index.txt', 'w').close()
 
 	def save_webpages(self):
 		index = 0
-		index_file = open('index.txt', 'a')
+		index_file = open('data/index.txt', 'a')
 		for link in self.url_list:
 			index_file.write('\n'+str(index)+'#'+link)
 			index = index + 1
