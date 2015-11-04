@@ -17,6 +17,12 @@ class Crawler(object):
 	def get_webpage(self, url):
 		return requests.get(url) 
 	
+	def export_full_url_list(self):
+		full_url = []
+		for url in self.visited_links:
+			full_url.append(self.starting_domain + url)
+		return full_url
+			
 	# Method picking the next site in the unvisited_links set and parse the html to extract all links on the
 	# new subpage. Pushes all the new links which do not exist or have been visited onto the unvisited_links set.
 	# TODO: Add functionality for saving a webpage.
@@ -50,11 +56,11 @@ class Crawler(object):
 			print "Crawled subpages: " + str(len(self.visited_links))
 			print "Subpages to go: " + str(len(self.unvisited_links))
 		print "Failed links: "
-		scraper = Scraper(self.visited_links)
-		scraper.replace_old_index()
-		scraper.save_webpages()
+		scraper = Scraper(self.export_full_url_list())
+		scraper.Scrape()
 		print self.failed_links
-		
+import os
+import glob		
 class Scraper(object):
 	def __init__(self, list_of_urls):
 		self.url_list = list_of_urls
@@ -68,9 +74,38 @@ class Scraper(object):
 		old_file.close()
 		open('index.txt', 'w').close()
 
-	def save_webpages(self):
+	def save_urls(self):
 		index = 0
 		index_file = open('data/index.txt', 'a')
 		for link in self.url_list:
 			index_file.write('\n'+str(index)+'#'+link)
 			index = index + 1
+	
+	def delete_old_webpages(self):
+		webpages = os.listdir('data/webpages/old')
+		for webpage in webpages:
+			os.remove(webpage)
+
+	def move_files(self):
+		src = 'data/webpages/index'
+		dst = 'data/webpages/old'
+		list_of_files = os.listdir(src)
+		for webpage in list_of_files:
+			full_path = src + '/' + webpage
+			os.system('mv' + ' ' + full_path + ' ' + dst)
+	
+	def save_webpages(self):
+		index = 0
+		for url in self.url_list:
+			site = requests.get(url).content
+			f = open('data/webpages/index/' + str(index)+'.txt', 'a')
+			f.write(str(site))
+			f.close()
+			index = index + 1
+	
+	def Scrape(self):
+		self.replace_old_index()
+		self.save_urls()
+		self.delete_old_webpages()
+		self.move_files()
+		self.save_webpages()	
