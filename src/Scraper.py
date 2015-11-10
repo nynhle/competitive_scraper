@@ -1,3 +1,4 @@
+import glob
 import os
 import requests
 
@@ -24,7 +25,10 @@ class Scraper(object):
 	def delete_old_webpages(self):
 		webpages = os.listdir('data/webpages/old')
 		for webpage in webpages:
-			os.remove(webpage)
+			if webpage.startswith('.'):
+				pass
+			else:	
+				os.remove(webpage)
 
 	def move_files(self):
 		src = 'data/webpages/index'
