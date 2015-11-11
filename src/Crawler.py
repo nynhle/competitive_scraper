@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-import Scraper
 	
 class Crawler(object):
 	
@@ -57,7 +56,6 @@ class Crawler(object):
 			print "Crawled subpages: " + str(len(self.visited_links))
 			print "Subpages to go: " + str(len(self.unvisited_links))
 		print "Failed links: "
-		scraper = Scraper.Scraper(self.export_full_url_list())
-		scraper.Scrape()
 		print self.failed_links
+		return self.export_full_url_list()
 
