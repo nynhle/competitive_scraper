@@ -27,7 +27,7 @@ class Scraper(object):
 			if webpage.startswith('.'):
 				pass
 			else:	
-				os.remove(webpage)
+				os.remove('data/webpages/old/'+webpage)
 
 	def move_files(self):
 		src = 'data/webpages/index'
