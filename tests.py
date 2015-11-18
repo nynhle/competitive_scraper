@@ -1,8 +1,10 @@
 import unittest
 import os
+from src import Crawler
 from src import Scraper
 
-#os.spawnl(os.P_NOWAIT, 'python -m SimpleHTTPServer 8000')
 class TestScraper(unittest.TestCase):
-	scraper = Scraper.Scraper('http://localhost:8000/testpages/first_version.html')
+	crawler = Crawler.Crawler('http://localhost:8000/testpages/first_version.html')
+	crawler.Crawl()
+	scraper = Scraper.Scraper(crawler.export_full_url_list())
 	scraper.Scrape()
