@@ -22,5 +22,7 @@ class TestCrawler(unittest.TestCase):
 		crawler.Crawl()
 		self.assertEqual(10, len(crawler.export_full_url_list()))
 
+	#TODO: Add tests verifying all links gathered are correct.
+
 if __name__ == '__main__':
 	unittest.main()
