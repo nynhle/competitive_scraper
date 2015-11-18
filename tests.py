@@ -1,5 +1,4 @@
 import unittest
-import os
 from src import Crawler
 from src import Scraper
 
