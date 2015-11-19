@@ -25,13 +25,9 @@ class Crawler(object):
 			
 	# Method picking the next site in the unvisited_links set and parse the html to extract all links on the
 	# new subpage. Pushes all the new links which do not exist or have been visited onto the unvisited_links set.
-	# TODO: Add functionality for saving a webpage.
 	# TODO: Gonna be a long and messy method. Refactor.
 	def scrape_site_extract_links(self):	
-		next_subpage = self.unvisited_links.pop()
-		next_site = self.starting_domain + next_subpage
-		print next_site
-
+		next_site = self.unvisited_links.pop()
 		try:
 			site = requests.get(next_site)
 			tree = BeautifulSoup(site.content, 'html.parser')
@@ -39,23 +35,48 @@ class Crawler(object):
 			for linknode in tree.find_all('a'):
 				link = str(linknode.get('href'))
 				if link.startswith('/'):
-					if link not in self.visited_links: # If it's not visited -> add.
-						self.unvisited_links.add(link) # No need to worry about duplicates in sets.
+					full_link =  self.starting_domain + link
+					if full_link not in self.visited_links: # If it's not visited -> add.
+						self.unvisited_links.add(full_link) # No need to worry about duplicates in sets.
+				elif link.startswith(self.starting_domain):
+					if link not in self.visited_links:
+						self.unvisited_links.add(link)
+				else:
+					if not link.startswith('http://'):
+						full_link = replace_last_filename(next_site, link)
+						if full_link not in self.visited_links:
+							self.unvisited_links.add(full_link)
 		except Exception:
 			print "Not possible to scrape: " + next_site
 			self.failed_links.add(next_site)
+	
+	def replace_last_filename(self, link, new_filename):
+		index = len(link)-1
+		new_link_stack = []
+		new_link = ""
+		slashFound = False
+		
+		while index >= 0:
+			if not slashFound and link[index] == '/':
+				slashFound = True
+				new_link_stack.append(link[index])
+			elif slashFound:
+				new_link_stack.append(link[index])
+			index = index -1 
+		
+		while len(new_link_stack) > 0:
+			new_link += new_link_stack.pop()
+		
+		new_link += new_filename
+
+		return new_link
+		
 	
 
 	# Main pattern. Crawls pages as long as there are still 
 	# unvisited pages.	
 	def Crawl(self):
 		while len(self.unvisited_links) > 0:
-			print "Crawling..."
 			self.scrape_site_extract_links()
-			print "One subpage crawled!"
-			print "Crawled subpages: " + str(len(self.visited_links))
-			print "Subpages to go: " + str(len(self.unvisited_links))
-		print "Failed links: "
-		print self.failed_links
 		return self.export_full_url_list()
 
