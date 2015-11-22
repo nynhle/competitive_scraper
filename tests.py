@@ -10,18 +10,18 @@ from src import Scraper
 class TestCrawler(unittest.TestCase):
 
 	# 10 links on testpage + startpage = 11
-	def test_count_urls_first_page(self): 
+	def test_Crawl_count_urls_first_page(self): 
 		crawler = Crawler.Crawler('http://localhost:8000', '/testpages/first_version.html')
 		crawler.Crawl()
 		self.assertEqual(11, len(crawler.export_full_url_list()))
 
 	# 9 links on testpage + startpage = 10
-	def test_count_urls_second_page(self):
+	def test_Crawl_count_urls_second_page(self):
 		crawler = Crawler.Crawler('http://localhost:8000', '/testpages/second_version.html')
 		crawler.Crawl()
 		self.assertEqual(10, len(crawler.export_full_url_list()))
 
-	def test_verify_urls_first_version(self):
+	def test_Crawl_verify_urls_first_version(self):
 		crawler = Crawler.Crawler('http://localhost:8000', '/testpages/first_version.html')
 		crawler.Crawl()
 		scraped_urls = crawler.export_full_url_list()
@@ -40,7 +40,7 @@ class TestCrawler(unittest.TestCase):
 
 		self.assertTrue(isValid) 
 
-	def test_veryfy_urls_second_version(self):
+	def test_Crawl_veryfy_urls_second_version(self):
 		crawler = Crawler.Crawler('http://localhost:8000', 'testpages/second_version.html')
 		crawler.Crawl()
 		scraped_urls = crawler.export_full_url_list()
@@ -57,6 +57,11 @@ class TestCrawler(unittest.TestCase):
 				break
 
 		self.assertTrue(isValid)
+
+	def test_replace_last_filename(self):
+		crawler = Crawler.Crawler('http://localhost:8000/testpages/first_version.html', '')
+		result = crawler.replace_last_filename('http://localhost:8000/testpages/hyperlink1.html', 'hyperlink2.html')
+		self.assertEqual(result, 'http://localhost:8000/testpages/hyperlink2.html')
 	
 
 if __name__ == '__main__':
