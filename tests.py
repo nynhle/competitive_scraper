@@ -30,7 +30,7 @@ class TestCrawler(unittest.TestCase):
 				'http://localhost:8000/testpages/hyperlink2.html', 'http://localhost:8000/testpages/hyperlink3.html', \
 				'http://localhost:8000/testpages/hyperlink4.html', 'http://localhost:8000/testpages/hyperlink5.html', \
 				'http://localhost:8000/testpages/hyperlink6.html', 'http://localhost:8000/testpages/hyperlink7.html', \
-				'http://localhost:8000/somefolder/hyperlink8.html', 'http://localhost:8000/testpages/hyperlink9.html' \
+				'http://localhost:8000/somefolder/hyperlink8.html', 'http://localhost:8000/testpages/hyperlink9.html', \
 				'http://localhost:8000/testpages/hyperlink10.html']
  
 		for link in scraped_urls:

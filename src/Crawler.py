@@ -18,10 +18,7 @@ class Crawler(object):
 		return requests.get(url) 
 	
 	def export_full_url_list(self):
-		full_url = []
-		for url in self.visited_links:
-			full_url.append(self.starting_domain + url)
-		return full_url
+		return self.visited_links
 			
 	# Method picking the next site in the unvisited_links set and parse the html to extract all links on the
 	# new subpage. Pushes all the new links which do not exist or have been visited onto the unvisited_links set.
@@ -41,6 +38,14 @@ class Crawler(object):
 				elif link.startswith(self.starting_domain):
 					if link not in self.visited_links:
 						self.unvisited_links.add(link)
+				elif not link.startswith('http'):
+					if next_site != self.starting_domain:
+						new_link = self.replace_last_filename(next_site, link)
+					else:
+						new_link = self.starting_domain + '/' + link
+					self.unvisited_links.add(full_link)
+					if new_link not in self.visited_links:
+						self.unvisited_links.add(new_link)
 		except Exception:
 			print "Not possible to scrape: " + next_site
 			self.failed_links.add(next_site)
@@ -63,7 +68,7 @@ class Crawler(object):
 			new_link += new_link_stack.pop()
 		
 		new_link += new_filename
-
+		print new_link
 		return new_link
 		
 	
