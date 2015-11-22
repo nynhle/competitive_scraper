@@ -31,7 +31,6 @@ class Crawler(object):
 			self.visited_links.add(str(next_site))
 			for linknode in tree.find_all('a'):
 				link = str(linknode.get('href'))
-				print link
 				if link.startswith('/'):
 					full_link =  self.starting_domain + link
 					if full_link not in self.visited_links: # If it's not visited -> add.
