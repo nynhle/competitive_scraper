@@ -100,11 +100,5 @@ class TestScraper(unittest.TestCase):
 		self.assertEqual(len(list_of_files), hidden_files)
 
 
-
-
-
-
-
-
 if __name__ == '__main__':
 	unittest.main()
