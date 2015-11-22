@@ -11,18 +11,18 @@ class TestCrawler(unittest.TestCase):
 
 	# 10 links on testpage + startpage = 11
 	def test_count_urls_first_page(self): 
-		crawler = Crawler.Crawler('http://localhost:8000/testpages/first_version.html')
+		crawler = Crawler.Crawler('http://localhost:8000', '/testpages/first_version.html')
 		crawler.Crawl()
 		self.assertEqual(11, len(crawler.export_full_url_list()))
 
 	# 9 links on testpage + startpage = 10
 	def test_count_urls_second_page(self):
-		crawler = Crawler.Crawler('http://localhost:8000/testpages/second_version.html')
+		crawler = Crawler.Crawler('http://localhost:8000', '/testpages/second_version.html')
 		crawler.Crawl()
 		self.assertEqual(10, len(crawler.export_full_url_list()))
 
 	def test_verify_urls_first_version(self):
-		crawler = Crawler.Crawler('http://localhost:8000/testpages/first_version.html')
+		crawler = Crawler.Crawler('http://localhost:8000', '/testpages/first_version.html')
 		crawler.Crawl()
 		scraped_urls = crawler.export_full_url_list()
 		isValid = True
