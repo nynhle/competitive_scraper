@@ -1,3 +1,4 @@
+import os
 import unittest
 from src import Crawler
 from src import Scraper
@@ -77,6 +78,19 @@ class TestScraper(unittest.TestCase):
 		old_url = open('data/old.txt', 'r').read()
 
 		self.assertEqual(old_url, '1#http://localhost:8000/testpages/first_version.html')
+	
+	def test_delete_old_webpages(self):
+		url_list = ['http://localhost:8000/testpages/second_version.html']
+		scraper = Scraper.Scraper(url_list)
+		foo_file = open('data/webpages/old/foo.txt', 'w')
+		foo_file.close()
+		scraper.delete_old_webpages()
+		list_of_files = os.listdir('data/webpages/old')
+		hidden_files = 0
+		for link in list_of_files:
+			if link.startswith('.'):
+				hidden_files += 1
+		self.assertEqual(len(list_of_files), hidden_files)
 
 
 
