@@ -53,7 +53,7 @@ class TestCrawler(unittest.TestCase):
 				'http://localhost:8000/testpages/hyperlink11.html']
 
 		for link in scraped_urls:
-			if lin not in valid_urls:
+			if link not in valid_urls:
 				isValid = False
 				break
 
