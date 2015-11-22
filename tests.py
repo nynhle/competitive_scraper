@@ -78,6 +78,13 @@ class TestScraper(unittest.TestCase):
 		old_url = open('data/old.txt', 'r').read()
 
 		self.assertEqual(old_url, '1#http://localhost:8000/testpages/first_version.html')
+
+	def test_save_urls(self):
+		index_file = open('data/index.txt', 'w')
+		url_list = ['http://localhost:8000/testpages/second_version.html', 'http://localhost:8000/testpages/first_version.html']
+		scraper = Scraper.Scraper(url_list)
+		scraper.save_urls()
+		self.assertEqual(open('data/index.txt', 'r').read(), '\n0#http://localhost:8000/testpages/second_version.html\n1#http://localhost:8000/testpages/first_version.html')
 	
 	def test_delete_old_webpages(self):
 		url_list = ['http://localhost:8000/testpages/second_version.html']
