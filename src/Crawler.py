@@ -5,7 +5,7 @@ class Crawler(object):
 	
 	# Init method. Domain and starting subpage are hold as class properties to
 	# be accessible from all class methods.
-	def __init__(self, starting_domain, starting_subpage=''):
+	def __init__(self, starting_domain, starting_subpage):
 		self.starting_domain = starting_domain
 		self.starting_subpage = starting_subpage
 		self.visited_links = set()
