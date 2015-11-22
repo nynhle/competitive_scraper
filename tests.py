@@ -40,11 +40,6 @@ class TestCrawler(unittest.TestCase):
 
 		self.assertTrue(isValid) 
 	
-	def test_replace_last_filename(self):
-		link = 'http://localhost:8000/testpages/first_version.html'
-		crawler = Crawler.Crawler(link)
-		updated_link = crawler.replace_last_filename(link, 'second_version.html')
-		self.assertEqual('http://localhost:8000/testpages/second_version.html', updated_link)
 
 if __name__ == '__main__':
 	unittest.main()
