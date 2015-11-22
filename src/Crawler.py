@@ -11,7 +11,7 @@ class Crawler(object):
 		self.visited_links = set()
 		self.unvisited_links = set()
 		self.failed_links = set()
-		self.unvisited_links.add(starting_subpage) # To be able to start scraping we need a starting page.
+		self.unvisited_links.add(starting_domain+starting_subpage) # To be able to start scraping we need a starting page.
 	
 	# Returning html based on the url passed in as argument.
 	def get_webpage(self, url):
@@ -31,7 +31,7 @@ class Crawler(object):
 		try:
 			site = requests.get(next_site)
 			tree = BeautifulSoup(site.content, 'html.parser')
-			self.visited_links.add(str(next_subpage))
+			self.visited_links.add(str(next_site))
 			for linknode in tree.find_all('a'):
 				link = str(linknode.get('href'))
 				if link.startswith('/'):
@@ -41,11 +41,6 @@ class Crawler(object):
 				elif link.startswith(self.starting_domain):
 					if link not in self.visited_links:
 						self.unvisited_links.add(link)
-				else:
-					if not link.startswith('http://'):
-						full_link = replace_last_filename(next_site, link)
-						if full_link not in self.visited_links:
-							self.unvisited_links.add(full_link)
 		except Exception:
 			print "Not possible to scrape: " + next_site
 			self.failed_links.add(next_site)
