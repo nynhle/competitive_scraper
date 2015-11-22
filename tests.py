@@ -64,5 +64,26 @@ class TestCrawler(unittest.TestCase):
 		self.assertEqual(result, 'http://localhost:8000/testpages/hyperlink2.html')
 	
 
+
+class TestScraper(unittest.TestCase):
+	
+	def test_replace_old_index(self):
+		index_file = open('data/index.txt', 'w')
+		index_file.write('1#http://localhost:8000/testpages/first_version.html')
+		index_file.close()
+		url_list = ['http://localhost:8000/testpages/second_version.html']
+		scraper = Scraper.Scraper(url_list)
+		scraper.replace_old_index()
+		old_url = open('data/old.txt', 'r').read()
+
+		self.assertEqual(old_url, '1#http://localhost:8000/testpages/first_version.html')
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
 	unittest.main()
