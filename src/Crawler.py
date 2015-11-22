@@ -31,6 +31,7 @@ class Crawler(object):
 			self.visited_links.add(str(next_site))
 			for linknode in tree.find_all('a'):
 				link = str(linknode.get('href'))
+				print link
 				if link.startswith('/'):
 					full_link =  self.starting_domain + link
 					if full_link not in self.visited_links: # If it's not visited -> add.
@@ -43,7 +44,6 @@ class Crawler(object):
 						new_link = self.replace_last_filename(next_site, link)
 					else:
 						new_link = self.starting_domain + '/' + link
-					self.unvisited_links.add(full_link)
 					if new_link not in self.visited_links:
 						self.unvisited_links.add(new_link)
 		except Exception:
@@ -68,7 +68,6 @@ class Crawler(object):
 			new_link += new_link_stack.pop()
 		
 		new_link += new_filename
-		print new_link
 		return new_link
 		
 	
