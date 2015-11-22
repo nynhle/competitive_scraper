@@ -39,6 +39,24 @@ class TestCrawler(unittest.TestCase):
 				break
 
 		self.assertTrue(isValid) 
+
+	def test_veryfy_urls_second_version(self):
+		crawler = Crawler.Crawler('http://localhost:8000', 'testpages/second_version.html')
+		crawler.Crawl()
+		scraped_urls = crawler.export_full_url_list()
+		isValid = True
+		valid_urls = ['http://localhost:8000/testpages/hyperlink1.html', 'http://localhost:8000/testpages/hyperlink2.html', \
+				'http://localhost:8000/testpages/hyperlink3.html', 'http://localhost:8000/testpages/hyperlink4.html', \
+				'http://localhost:8000/somefolder/hyperlink5.html', 'http://localhost:8000/testpages/hyperlink6.html', \
+				'http://localhost:8000/testpages/hyperlink7.html', 'http://localhost:8000/testpages/hyperlink8.html', \
+				'http://localhost:8000/testpages/hyperlink11.html']
+
+		for link in scraped_urls:
+			if lin not in valid_urls:
+				isValid = False
+				break
+
+		self.assertTrue(isValid)
 	
 
 if __name__ == '__main__':
