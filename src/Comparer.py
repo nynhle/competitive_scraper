@@ -11,19 +11,6 @@ class Comparer(object):
 		with open('data/old.txt') as old_index_file:
 			return old_index_file.read()
 
-	def get_html_file(self, key):
-		if '.txt' in key:
-			return open('data/webpages/index/' + key + '.txt').read()
-		else:
-			return key
-
-
-	def get_old_html_file(self, key):
-		if '.txt' in key:	
-			return open('data/webpages/old/' + key + '.txt').read()
-		else:
-			return key
-
 	def get_line_key(self, line):
 		result = ''
 		for char in line:
