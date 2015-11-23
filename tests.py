@@ -141,6 +141,25 @@ class TestScraper(unittest.TestCase):
 					allMoved = False
 
 		self.assertTrue(allMoved and len(url_list) == moved_pages)
+
+	def test_save_webpages(self):
+		# First clean index folder
+		for webpage in os.listdir('data/webpages/index'):
+			if webpage.startswith('.'):
+				pass
+			else:
+				os.remove('data/webpages/index/' + webpage)
+		url_list = ['http://localhost:8000/webpages/first_version.html', 'http://localhost:8000/webpages/second_version.html']
+		scraper = Scraper.Scraper(url_list)
+		scraper.save_webpages()
+		counted_pages = 0
+		for webpage in os.listdir('data/webpages/index'):
+			if webpage.startswith('.'):
+				pass
+			else:
+				counted_pages += 1
+		self.assertEqual(counted_pages, len(url_list))
+				
 		
 
 		
