@@ -47,7 +47,8 @@ class Comparer(object):
 
 	def parse_old_index_url_file(self):
 		old_list_file = []
-		for line in self.return_old_index():
+		old_file = self.return_old_index()
+		for line in old_file:
 			url = UrlFile(self.get_line_key(line), self.get_line_url(line))
 			old_list_file.append(url)
 

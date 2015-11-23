@@ -178,7 +178,7 @@ class TestComparer(unittest.TestCase):
 		index_file.write('0#http://localhost:8000/testpages/first_version.html')
 		index_file.close()
 		index_file = open('data/index.txt', 'a')
-		index_file.write('1#http://localhost:8000/testpages/second_version.html')
+		index_file.write('\n1#http://localhost:8000/testpages/second_version.html')
 		comparer = Comparer.Comparer()
 		result = comparer.parse_index_url_file()
 		valid_list = ['0', 'http://localhost:8000/testpages/first_version.html', \
@@ -194,15 +194,14 @@ class TestComparer(unittest.TestCase):
 		self.assertTrue(isValid)
 
 	def test_parse_old_index_url_file(self):
-		old_file = open('data/old.txt', 'w')
-		old_file.write('0#http://localhost:8000/testpages/first_version.txt')
-		old_file.close()
-		old_file = open('data/old.txt', 'a')
-		old_file.write('1#http://localhost:8000/testpages/second_version.txt')
-		old_file.close()
+		index_file = open('data/old.txt', 'w')
+		index_file.write('0#http://localhost:8000/testpages/first_version.html')
+		index_file.close()
+		index_file = open('data/old.txt', 'a')
+		index_file.write('\n1#http://localhost:8000/testpages/second_version.html')
 		comparer = Comparer.Comparer()
 		result = comparer.parse_old_index_url_file()
-		valid_list = ['0', 'http://localhost:8000/testpages/first_version.html',\
+		valid_list = ['0', 'http://localhost:8000/testpages/first_version.html', \
 				'1', 'http://localhost:8000/testpages/second_version.html']
 
 		isValid = True
@@ -243,7 +242,6 @@ class TestComparer(unittest.TestCase):
 #		index_website.close()
 #		comparer = Comparer.Comparer()
 #		comparer.compare()
-
 
 if __name__ == '__main__':
 	unittest.main()
