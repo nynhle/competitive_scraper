@@ -90,12 +90,14 @@ def get_matched_pairs():
 	return pair_list
 
 def compare():
+	log = open('data/changes.txt', 'a')
 	for pair in get_matched_pairs():
-		print "-----------NEW PAIR-----------" 
-		print pair.new + pair.new
-		#print "NEW: Index = " + pair.new.get_key() + ", Url = " + pair.new.get_url()
-		#print "OLD: Index = " + pair.old.get_key() + ", Url = " + pair.old.get_url()
-		
+		new_site = open('data/webpages/index/' + pair.new.key + '.txt')
+		old_site = open('data/webpages/old/' + pair.old.key + '.txt')
+		d = difflib.Differ()
+		result = d.compare(new_site, old_site)
+		log.write(result)	
+	log.close()
 
 			
 compare()		
