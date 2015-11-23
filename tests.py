@@ -152,7 +152,7 @@ class TestComparer(unittest.TestCase):
 		index_file.close()
 		comparer = Comparer.Comparer()
 		result = comparer.return_index()
-		self.assertEqual(result, file_content) 
+		self.assertEqual(result, [file_content]) 
 
 	def test_return_old_index(self):
 		old_index_file = open('data/old.txt', 'w')
@@ -172,6 +172,24 @@ class TestComparer(unittest.TestCase):
 		comparer = Comparer.Comparer()
 		result = comparer.get_line_url('0#http://localhost:8000/testpages/second_version.html')
 		self.assertEqual(result, 'http://localhost:8000/testpages/second_version.html')
+
+	def test_parse_index_url_file(self):
+		index_file = open('data/index.txt', 'w')
+		index_file.write('0#http://localhost:8000/testpages/first_version.html')
+		index_file.close()
+		comparer = Comparer.Comparer()
+		result = comparer.parse_index_url_file()
+		valid_list = ['0', 'http://localhost:8000/testpages/first_version.html', \
+				'1', 'http://localhost:8000/testpages/second_version.html']
+
+		isValid = True
+		for urlfile in result:
+			if urlfile.key in valid_list and urlfile.url in valid_list:
+				valid_list.remove(urlfile.key)
+				valid_list.remove(urlfile.url)
+			else:
+				isValid = False
+		self.assertTrue(isValid)
 
 
 		
