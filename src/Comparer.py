@@ -10,8 +10,10 @@ class Comparer(object):
 		return index_content
 
 	def return_old_index(self):
-		with open('data/old.txt') as old_index_file:
-			return old_index_file.read()
+		old_file = open('data/old.txt', 'r')
+		file_content = old_file.readlines()
+		old_file.close()
+		return file_content
 
 	def get_line_key(self, line):
 		result = ''
