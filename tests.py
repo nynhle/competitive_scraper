@@ -177,6 +177,8 @@ class TestComparer(unittest.TestCase):
 		index_file = open('data/index.txt', 'w')
 		index_file.write('0#http://localhost:8000/testpages/first_version.html')
 		index_file.close()
+		index_file = open('data/index.txt', 'a')
+		index_file.write('1#http://localhost:8000/testpages/second_version.html')
 		comparer = Comparer.Comparer()
 		result = comparer.parse_index_url_file()
 		valid_list = ['0', 'http://localhost:8000/testpages/first_version.html', \
