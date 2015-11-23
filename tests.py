@@ -162,6 +162,13 @@ class TestComparer(unittest.TestCase):
 		comparer = Comparer.Comparer()
 		result = comparer.return_old_index()
 		self.assertEqual(result, file_content)
+	
+	def test_get_line_key(self):
+		comparer = Comparer.Comparer()
+		result = comparer.get_line_key('0#http://localhost:8000/testpages/second_version.html')
+		self.assertEqual(result, '0')
+
+
 		
 #	def test_compare(self):
 #		first_page = requests.get('http://localhost:8000/testpages/first_version.html').content
