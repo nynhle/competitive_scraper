@@ -147,12 +147,16 @@ class TestScraper(unittest.TestCase):
 class TestComparer(unittest.TestCase):
 	def test_return_index(self):
 		index_file = open('data/index.txt', 'w')
-		index_content = '0#http://localhost:8000/testpages/first_version.html'
-		index_file.write(index_content)
+		file_content = '0#http://localhost:8000/testpages/first_version.html'
+		index_file.write(file_content)
 		index_file.close()
 		comparer = Comparer.Comparer()
 		result = comparer.return_index()
 		self.assertEqual(result, index_content) 
+
+	def test_return_old_index(self):
+		old_index_file = open('data/old.txt', 'w')
+		
 #	def test_compare(self):
 #		first_page = requests.get('http://localhost:8000/testpages/first_version.html').content
 #		second_page = requests.get('http://localhost:8000/testpages/second_version.html').content
