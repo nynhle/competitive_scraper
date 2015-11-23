@@ -4,8 +4,10 @@ import difflib
 class Comparer(object):
 	
 	def return_index(self):
-		with open('data/index.txt') as index_file:
-			return index_file.read()
+		index_file = open('data/index.txt', 'r')
+		index_content = index_file.readlines()
+		index_file.close()
+		return index_content
 
 	def return_old_index(self):
 		with open('data/old.txt') as old_index_file:
@@ -34,7 +36,8 @@ class Comparer(object):
 
 	def parse_index_url_file(self):
 		url_list_file = []
-		for line in self.return_index():
+		index_file = self.return_index()
+		for line in index_file:
 			url = UrlFile(self.get_line_key(line), self.get_line_url(line))
 			url_list_file.append(url)
 
