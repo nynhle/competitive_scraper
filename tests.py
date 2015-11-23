@@ -100,5 +100,51 @@ class TestScraper(unittest.TestCase):
 		self.assertEqual(len(list_of_files), hidden_files)
 
 
+	def test_move_files(self):
+		# Removing all the files in index directory
+		new_webpages = os.listdir('data/webpages/index')
+		for webpage in new_webpages:
+			if webpage.startswith('.'):
+				pass
+			else:
+				os.remove('data/webpages/index/' + webpage)
+		
+		# Removing all the files in the old directory
+		old_webpages = os.listdir('data/webpages/old')
+		for webpage in old_webpages:
+			if webpage.startswith('.'):
+				pass
+			else:
+				os.remove('data/webpages/old/' + webpage)
+
+		# Now its possible to control which files are in index dir
+		first_file = open('data/webpages/index/first_file.txt', 'w')
+		first_file.close()
+		second_file = open('data/webpages/index/second_file.txt', 'w')
+		second_file.close()
+	
+		url_list = ['data/webpages/old/first_file.txt', 'data/webpages/old/second_file.txt']
+		scraper = Scraper.Scraper(url_list)
+		scraper.move_files()
+
+		# Now all the files added to index dir should be in old dir
+		allMoved = True
+		moved_webpages = os.listdir('data/webpages/old')
+		moved_pages = 0
+		for webpage in moved_webpages:
+			if webpage.startswith('.'):
+				pass
+			else:
+				full_url = 'data/webpages/old/' + webpage
+				moved_pages += 1
+				if full_url not in url_list:
+					allMoved = False
+
+		self.assertTrue(allMoved and len(url_list) == moved_pages)
+		
+
+		
+
+
 if __name__ == '__main__':
 	unittest.main()
