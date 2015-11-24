@@ -214,34 +214,36 @@ class TestComparer(unittest.TestCase):
 		self.assertTrue(isValid)
 
 
+
+
 		
-#	def test_compare(self):
-#		first_page = requests.get('http://localhost:8000/testpages/first_version.html').content
-#		second_page = requests.get('http://localhost:8000/testpages/second_version.html').content
-#		index_file = open('data/index.txt', 'w')
-#		index_file.write('0#http://localhost:8000/testpages/first_version.html')
-#		index_file.close()
-#		old_index_file = open('data/old.txt', 'w')
-#		old_index_file.write('0#http://localhost:8000/testpages/first_version.html')
-#		old_index_file.close()
-#		for website in os.listdir('data/webpages/index'):
-#			if website.startswith('.'):
-#				pass
-#			else:
-#				os.remove('data/webpages/index/'+website)
-#		index_website = open('data/webpages/index/0.txt', 'w')
-#		index_website.write(first_page)
-#		index_file.close()
-#		for website in os.listdir('data/webpages/old'):
-#			if website.startswith('.'):
-#				pass
-#			else:
-#				os.remove('data/webpages/old/'+website)
-#		old_website = open('data/webpages/old/0.txt', 'w')
-#		old_website.write(second_page)
-#		index_website.close()
-#		comparer = Comparer.Comparer()
-#		comparer.compare()
+	def test_compare(self):
+		first_page = requests.get('http://localhost:8000/testpages/first_version.html').content
+		second_page = requests.get('http://localhost:8000/testpages/second_version.html').content
+		index_file = open('data/index.txt', 'w')
+		index_file.write('0#http://localhost:8000/testpages/first_version.html')
+		index_file.close()
+		old_index_file = open('data/old.txt', 'w')
+		old_index_file.write('0#http://localhost:8000/testpages/first_version.html')
+		old_index_file.close()
+		for website in os.listdir('data/webpages/index'):
+			if website.startswith('.'):
+				pass
+			else:
+				os.remove('data/webpages/index/'+website)
+		index_website = open('data/webpages/index/0.txt', 'w')
+		index_website.write(first_page)
+		index_file.close()
+		for website in os.listdir('data/webpages/old'):
+			if website.startswith('.'):
+				pass
+			else:
+				os.remove('data/webpages/old/'+website)
+		old_website = open('data/webpages/old/0.txt', 'w')
+		old_website.write(second_page)
+		index_website.close()
+		comparer = Comparer.Comparer()
+		comparer.compare()
 
 if __name__ == '__main__':
 	unittest.main()
