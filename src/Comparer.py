@@ -67,7 +67,7 @@ class Comparer(object):
 		return pair_list
 
 	def compare(self):
-		log = open('data/changes.txt', 'a')
+		log = open('data/changes.txt', 'w')
 		for pair in self.get_matched_pairs():
 			new_site = open('data/webpages/index/' + str(pair.new.key) + '.txt', 'r')
 			old_site = open('data/webpages/old/' + str(pair.old.key) + '.txt', 'r')
