@@ -22,9 +22,16 @@ class Comparer(object):
 		for char in line:
 			if char == '#':
 				break
-			else:
+			elif self.isParsable_key(char):
 				result += char
 		return result
+	
+	def isParsable_key(self, number):
+		try:
+			int(number)
+			return True
+		except:
+			return False
 
 	def get_line_url(self, line):
 		result = ''
@@ -94,6 +101,7 @@ class Comparer(object):
 			old_site.close()
 			index_file.write(str(filechange_index) + '  ====>  ' + pair.new.url)
 			filechange_index += 1
+			return filechange_index + 1
 			
 
 class UrlFile(object):
