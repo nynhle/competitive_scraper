@@ -12,7 +12,7 @@ class Scraper(object):
 		old_file = open('data/old.txt', 'w')
 		old_file.write(index_file_content)
 		old_file.close()
-		open('index.txt', 'w').close()
+		open('data/index.txt', 'w').close()
 
 	def save_urls(self):
 		index = 0
