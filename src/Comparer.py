@@ -71,9 +71,9 @@ class Comparer(object):
 		for pair in self.get_matched_pairs():
 			new_site = open('data/webpages/index/' + str(pair.new.key) + '.txt', 'r')
 			old_site = open('data/webpages/old/' + str(pair.old.key) + '.txt', 'r')
-			d = difflib.Differ()
-			result = d.compare(new_site, old_site)
-			print result
+			diff = difflib.context_diff(new_site.readlines(), old_site.readlines())
+			delta = ''.join(diff)
+			log.write(delta)
 		log.close()
 
 class UrlFile(object):

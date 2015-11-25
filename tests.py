@@ -232,7 +232,7 @@ class TestComparer(unittest.TestCase):
 				os.remove('data/webpages/index/'+website)
 		index_website = open('data/webpages/index/0.txt', 'w')
 		index_website.write(first_page)
-		index_file.close()
+		index_website.close()
 		for website in os.listdir('data/webpages/old'):
 			if website.startswith('.'):
 				pass
@@ -240,7 +240,7 @@ class TestComparer(unittest.TestCase):
 				os.remove('data/webpages/old/'+website)
 		old_website = open('data/webpages/old/0.txt', 'w')
 		old_website.write(second_page)
-		index_website.close()
+		old_website.close()
 		comparer = Comparer.Comparer()
 		comparer.compare()
 
