@@ -215,7 +215,6 @@ class TestComparer(unittest.TestCase):
 
 
 
-
 		
 	def test_compare(self):
 		first_page = requests.get('http://localhost:8000/testpages/first_version.html').content
