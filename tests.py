@@ -170,7 +170,7 @@ class TestComparer(unittest.TestCase):
 
 	def test_get_line_key_no_newline(self):
 		comparer = Comparer.Comparer()
-		result = comarer.get_line_key('\n0#http://localhost:8000/testpages/second_version.html')
+		result = comparer.get_line_key('\n0#http://localhost:8000/testpages/second_version.html')
 		self.assertEqual(result, '0')
 
 	def test_get_line_url(self):
