@@ -1,5 +1,7 @@
 import filecmp
 import difflib
+import datetime
+import os
 
 class Comparer(object):
 	
@@ -53,7 +55,8 @@ class Comparer(object):
 			old_list_file.append(url)
 
 		return old_list_file
-
+	
+	# TODO: Add logic for removed or added pages.
 	def get_matched_pairs(self):
 		new_urls = self.parse_index_url_file()
 		old_urls = self.parse_old_index_url_file()
@@ -67,14 +70,31 @@ class Comparer(object):
 		return pair_list
 
 	def compare(self):
-		log = open('data/changes.txt', 'w')
+		filechange_index = 0
+		now = datetime.datetime.now()
+		time = str(now.year) + '-' + str(now.month) + '-' + str(now.day) + ' ' + str(now.hour) + '_' + str(now.minute) + '_' + str(now.second)
+		os.mkdir('data/changes/' + time)
+		index_file = open('data/changes/' + time + '/index.txt', 'w').close()
+	
 		for pair in self.get_matched_pairs():
+			index_file = open('data/changes/' + time + '/index.txt', 'a')
+			log = open('data/changes/' + time + '/' + str(filechange_index) + '.txt', 'w')
 			new_site = open('data/webpages/index/' + str(pair.new.key) + '.txt', 'r')
 			old_site = open('data/webpages/old/' + str(pair.old.key) + '.txt', 'r')
 			diff = difflib.context_diff(new_site.readlines(), old_site.readlines())
 			delta = ''.join(diff)
+			log.write('=====CHANGES FOR URL: ' + pair.new.url + '=====\n')
 			log.write(delta)
-		log.close()
+			log.close()
+			# For test purposes:
+			log = open('data/changes.txt', 'w')
+			log.write(delta)
+			log.close()
+			new_site.close()
+			old_site.close()
+			index_file.write(str(filechange_index) + '  ====>  ' + pair.new.url)
+			filechange_index += 1
+			
 
 class UrlFile(object):
 	def __init__(self, key, url):
