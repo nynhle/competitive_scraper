@@ -49,8 +49,9 @@ class Comparer(object):
 		url_list_file = []
 		index_file = self.return_index()
 		for line in index_file:
-			url = UrlFile(self.get_line_key(line), self.get_line_url(line))
-			url_list_file.append(url)
+			if '#' in line and '.txt' in line:
+				url = UrlFile(self.get_line_key(line), self.get_line_url(line))
+				url_list_file.append(url)
 
 		return url_list_file
 
@@ -90,7 +91,7 @@ class Comparer(object):
 			old_site = open('data/webpages/old/' + str(pair.old.key) + '.txt', 'r')
 			diff = difflib.context_diff(new_site.readlines(), old_site.readlines())
 			delta = ''.join(diff)
-			log.write('=====CHANGES FOR URL: ' + pair.new.url + '=====\n')
+			log.write('=====CHANGES FOR URL: ' + pair.new.url + '=====\n\n')
 			log.write(delta)
 			log.close()
 			# For test purposes:
