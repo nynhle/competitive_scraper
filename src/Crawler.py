@@ -46,7 +46,6 @@ class Crawler(object):
 					if new_link not in self.visited_links:
 						self.unvisited_links.add(new_link)
 		except Exception:
-			print "Not possible to scrape: " + next_site
 			self.failed_links.add(next_site)
 	
 	def replace_last_filename(self, link, new_filename):

@@ -243,6 +243,14 @@ class TestComparer(unittest.TestCase):
 		old_website.close()
 		comparer = Comparer.Comparer()
 		comparer.compare()
+		comparing_key_file = open('testpages/changes_key.txt', 'r')
+		comparing_key = comparing_key_file.read()
+		comparing_key_file.close()
+		comparing_result_file = open('data/changes.txt', 'r')
+		comparing_result = comparing_result_file.read()	
+		comparing_result_file.close()
+
+		self.assertEqual(comparing_key, comparing_result)
 
 if __name__ == '__main__':
 	unittest.main()
