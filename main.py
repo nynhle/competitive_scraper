@@ -6,7 +6,7 @@ def print_menu():
 	print '\nMenu'
 	print '1. Manually scrape a website.'
 	print '2. Set up a scraping schedule.'
-	print '3. Delete saved data'
+	print '3. Delete all saved data.'
 	print '4. Exit' 
 
 def manually_scrape():
