@@ -41,7 +41,7 @@ class Scraper(object):
 		index = 0
 		print "Scraping html.. " + str(len(self.url_list)) + " pages in total."
 		for url in self.url_list:
-			print url + '(' + str(len(index + 1)) + ')'
+			print url + ' (' + str(index + 1) + ')'
 			site = requests.get(url).content
 			f = open('data/webpages/index/' + str(index)+'.txt', 'a')
 			f.write(str(site))
