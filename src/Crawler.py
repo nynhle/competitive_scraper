@@ -77,6 +77,7 @@ class Crawler(object):
 	# Main pattern. Crawls pages as long as there are still 
 	# unvisited pages.	
 	def Crawl(self):
+		print '\n'
 		while len(self.unvisited_links) > 0:
 			self.scrape_site_extract_links()
 		print "Crawling done. " + str(len(self.visited_links)) + ' gathered links in total.'
