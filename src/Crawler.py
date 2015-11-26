@@ -25,6 +25,10 @@ class Crawler(object):
 	# TODO: Gonna be a long and messy method. Refactor.
 	def scrape_site_extract_links(self):	
 		next_site = self.unvisited_links.pop()
+		print "Now crawling " + next_site
+		print "Pages crawled " + str(len(self.visited_links))
+		print "Pages left " + str(len(self.unvisited_links))
+		print '--------------------------------------------------------------'
 		try:
 			site = requests.get(next_site)
 			tree = BeautifulSoup(site.content, 'html.parser')
@@ -75,5 +79,6 @@ class Crawler(object):
 	def Crawl(self):
 		while len(self.unvisited_links) > 0:
 			self.scrape_site_extract_links()
+		print "Crawling done. " + str(len(self.visited_links)) + ' gathered links in total.'
 		return self.export_full_url_list()
 
