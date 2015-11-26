@@ -26,7 +26,7 @@ user_input = ""
 
 while user_input != '4':
 	print_menu()
-	user_input = raw_input('\nWhich action to take?')
+	user_input = raw_input('\n')
 	
 	if user_input == '1':
 		manually_scrape()
