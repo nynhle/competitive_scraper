@@ -36,7 +36,7 @@ while user_input != '4':
 	elif user_input == '3':
 		print 'Not implemented yet'
 	elif user_input == '4':
-		print 'Not implemented yet'A
+		print 'Not implemented yet'
 	elif user_input == '5':
 		break
 	else:
