@@ -39,7 +39,8 @@ class Scraper(object):
 	
 	def save_webpages(self):
 		index = 0
-		print "Scraping html.. " + str(len(self.url_list)) + " pages in total."
+		print "\nScraping html from gathered URL's... " + str(len(self.url_list)) + " pages in total."
+		print "--------------------------------------------------------------"
 		for url in self.url_list:
 			print url + ' (' + str(index + 1) + ')'
 			site = requests.get(url).content
