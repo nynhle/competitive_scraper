@@ -14,6 +14,13 @@ scraper.Scrape()
 comparer = Comparer.Comparer()
 counted_files = comparer.compare()
 
-print "Domain scraped. Found " + str(counted_files) + " since last run."
+print "Domain scraped. " + str(counted_files) + " changes since last run."
+
+def print_menu():
+	print '\nMenu'
+	print '1. Manually scrape a website.'
+	print '2. Set up a scraping schedule.'
+	print '3. Delete saved data'
+	print '4. Exit' 
 
 
