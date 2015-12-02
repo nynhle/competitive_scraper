@@ -220,6 +220,18 @@ class TestComparer(unittest.TestCase):
 		self.assertTrue(isValid)
 
 
+	def test_get_matched_pairs_count(self):
+		index_file = open('data/index.txt', 'w')
+		old_file = open('data/old.txt', 'w')
+		index_file.write('0#http://localhost:8000/testpages/first_version.html')
+		index_file.close()
+		old_file.write('0#http://localhost:8000/testpages/first_version.html')
+		old_file.close()
+		comparer = Comparer.Comparer()
+		result = comparer.get_matched_pairs()
+		self.assertEqual(len(result), 1)
+
+
 
 		
 	def test_compare(self):
@@ -255,7 +267,6 @@ class TestComparer(unittest.TestCase):
 		comparing_result_file = open('data/changes.txt', 'r')
 		comparing_result = comparing_result_file.read()	
 		comparing_result_file.close()
-
 		self.assertEqual(comparing_key, comparing_result)
 
 if __name__ == '__main__':

@@ -49,7 +49,7 @@ class Comparer(object):
 		url_list_file = []
 		index_file = self.return_index()
 		for line in index_file:
-			if '#' in line and '.txt' in line:
+			if '#' in line:
 				url = UrlFile(self.get_line_key(line), self.get_line_url(line))
 				url_list_file.append(url)
 
@@ -59,8 +59,9 @@ class Comparer(object):
 		old_list_file = []
 		old_file = self.return_old_index()
 		for line in old_file:
-			url = UrlFile(self.get_line_key(line), self.get_line_url(line))
-			old_list_file.append(url)
+			if '#' in line:
+				url = UrlFile(self.get_line_key(line), self.get_line_url(line))
+				old_list_file.append(url)
 
 		return old_list_file
 	
@@ -69,7 +70,7 @@ class Comparer(object):
 		new_urls = self.parse_index_url_file()
 		old_urls = self.parse_old_index_url_file()
 		pair_list = []
-
+		
 		for url in new_urls:
 			for old_url in old_urls:
 				if url.url == old_url.url:
@@ -86,7 +87,8 @@ class Comparer(object):
 	
 		for pair in self.get_matched_pairs():
 			index_file = open('data/changes/' + time + '/index.txt', 'a')
-			log = open('data/changes/' + time + '/' + str(filechange_index) + '.txt', 'w')
+			log = open('data/changes/' + time + '/' + str(filechange_index) + '.txt', 'w').close()
+			log = open('data/changes/' + time + '/' + str(filechange_index) + '.txt', 'a')
 			new_site = open('data/webpages/index/' + str(pair.new.key) + '.txt', 'r')
 			old_site = open('data/webpages/old/' + str(pair.old.key) + '.txt', 'r')
 			diff = difflib.context_diff(new_site.readlines(), old_site.readlines())
@@ -95,14 +97,13 @@ class Comparer(object):
 			log.write(delta)
 			log.close()
 			# For test purposes:
-			log = open('data/changes.txt', 'w')
-			log.write(delta)
-			log.close()
+			test_log = open('data/changes.txt', 'w')
+			test_log.write(delta)
+			test_log.close()
 			new_site.close()
 			old_site.close()
 			index_file.write(str(filechange_index) + '  ====>  ' + pair.new.url)
 			filechange_index += 1
-			return filechange_index + 1
 			
 
 class UrlFile(object):
@@ -121,5 +122,23 @@ class FilePair(object):
 	def __init__(self, new, old):
 		self.new = new
 		self.old = old
+		self.set_new_page()
+		self.set_old_page()
+		self.compute_diff()
 
+	def set_new_page(self):
+		page_file = open('data/webpages/index/' + str(self.new.key) + '.txt', 'r')
+		self.new_page = page_file.readlines()
+		page_file.close()
+	
+	def set_old_page(self):
+		page_file = open('data/webpages/old/' + str(self.old.key) + '.txt', 'r')
+		self.old_page = page_file.readlines()
+		page_file.close()
+
+	def compute_diff(self):
+		self.diff = difflib.context_diff(self.new_page, self.old_page)
+
+	def return_diff(self):
+		return ''.join(self.diff)
 
