@@ -152,7 +152,7 @@ class FilePair(object):
 		site.close()
 
 	def set_old_webpage(self):
-		site = open('data/webpages/index/' + str(self.old.key) + '.txt', 'r')
+		site = open('data/webpages/old/' + str(self.old.key) + '.txt', 'r')
 		self.old_site = site.readlines()
 		site.close()
 
