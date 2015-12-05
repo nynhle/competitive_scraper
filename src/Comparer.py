@@ -102,21 +102,23 @@ class Comparer(object):
 		index_file = open('data/changes/' + time + '/index.txt', 'w').close()
 	
 		for pair in self.get_matched_pairs():
-			index_file = open('data/changes/' + time + '/index.txt', 'a')
-			log = open('data/changes/' + time + '/' + str(filechange_index) + '.txt', 'w').close()
-			log = open('data/changes/' + time + '/' + str(filechange_index) + '.txt', 'a')
 			pair.set_new_webpage()
-			pair.set_old_webpage()
+			pair.set_old_webpage()				
 			pair.calculate_delta()
-			log.write('=====CHANGES FOR URL: ' + pair.url + '=====\n\n')
-			log.write(pair.return_delta())
-			log.close()
-			# For test purposes:
-			test_log = open('data/changes.txt', 'w')
-			test_log.write(pair.return_delta())
-			test_log.close()
-			index_file.write(str(filechange_index) + '  ====>  ' + pair.url)
-			filechange_index += 1
+	
+			if pair.return_delta() != '':
+				index_file = open('data/changes/' + time + '/index.txt', 'a')
+				log = open('data/changes/' + time + '/' + str(filechange_index) + '.txt', 'w').close()
+				log = open('data/changes/' + time + '/' + str(filechange_index) + '.txt', 'a')
+				log.write('=====CHANGES FOR URL: ' + pair.url + '=====\n\n')
+				log.write(pair.return_delta())
+				log.close()
+				# For test purposes:
+				test_log = open('data/changes.txt', 'w')
+				test_log.write(pair.return_delta())
+				test_log.close()
+				index_file.write(str(filechange_index) + '  ====>  ' + pair.url)
+				filechange_index += 1
 			
 
 class UrlFile(object):
