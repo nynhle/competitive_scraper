@@ -5,10 +5,7 @@ from src import Comparer
 def print_menu():
 	print '\nMenu'
 	print '1. Manually scrape a website.'
-	print '2. Set up a scraping schedule.'
-	print '3. View latest changes in scraped HTML.'
-	print '4. Delete all scraped data.' 
-	print '5. Exit' 
+	print '2. Exit' 
 
 def manually_scrape():
 	domain = raw_input("\nWhat domain to limit to? ")
@@ -32,12 +29,6 @@ while user_input != '4':
 	if user_input == '1':
 		manually_scrape()
 	elif user_input == '2':
-		print 'Not implemented yet'
-	elif user_input == '3':
-		print 'Not implemented yet'
-	elif user_input == '4':
-		print 'Not implemented yet'
-	elif user_input == '5':
 		break
 	else:
 		print 'Not a valid input, please try again.'
